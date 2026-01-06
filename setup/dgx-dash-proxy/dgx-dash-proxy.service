@@ -1,0 +1,14 @@
+[Unit]
+Description=DGX Dashboard Proxy
+After=dgx-dashboard.service
+Wants=dgx-dashboard.service
+
+[Service]
+ExecStart=/usr/bin/socat tcp-l:11001,,fork,reuseaddr tcp:127.0.0.1:11000
+
+TimeoutStartSec=10
+Type=forking
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
