@@ -15,7 +15,7 @@ To get around this, I used `socat` and a SystemD service to redirect things whic
 sudo apt install socat -y
 
 # Get the SystemD service
-sudo curl -O /etc/systemd/system/dgx-dash-proxy.service https://raw.githubusercontent.com/kenmoini/lab-dgx-spark/refs/heads/main/setup/dgx-dash-proxy/dgx-dash-proxy.service
+sudo curl -o /etc/systemd/system/dgx-dash-proxy.service https://raw.githubusercontent.com/kenmoini/lab-dgx-spark/refs/heads/main/setup/dgx-dash-proxy/dgx-dash-proxy.service
 
 # Reload systemd
 sudo systemctl daemon-reload
@@ -43,5 +43,5 @@ http:
     dgxdashboard:
       loadBalancer:
         servers:
-          - url: "http://192.168.42.111:11001"
+          - url: "http://192.168.42.111:11001" # This is the IP of the DGX Spark
 ```

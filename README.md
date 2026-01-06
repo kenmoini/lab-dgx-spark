@@ -48,8 +48,11 @@ Past that, I personally haven't used the Workbench or Sync much - the Open WebUI
 
 ## Table of Contents
 
+> The `workdir` contains all the working scripts/configs that I use
+
 ### Setup
 
 - [Native GNOME Remote Desktop](./setup/remote-desktop/README.md)
 - [DGX Dashboard Proxy Service](./setup/dgx-dash-proxy/README.md)
 - ["Free" Ubuntu Pro](./setup/ubuntu-pro/README.md)
+- [Installing Cockpit and Co](./setup/cockpit/README.md)

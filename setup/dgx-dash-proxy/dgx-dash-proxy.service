@@ -7,7 +7,7 @@ Wants=dgx-dashboard.service
 ExecStart=/usr/bin/socat tcp-l:11001,,fork,reuseaddr tcp:127.0.0.1:11000
 
 TimeoutStartSec=10
-Type=forking
+Type=simple
 Restart=on-failure
 
 [Install]
