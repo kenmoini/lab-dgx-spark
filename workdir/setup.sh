@@ -15,12 +15,16 @@ set -e
 # Enable needed repos
 add-apt-repository universe
 
+# Not supported for Ubuntu 24.04 yet
+# curl -sSL https://repo.45drives.com/setup | bash
+
 ##########################################################
 # Install needed system packages
 apt install -y curl wget git \
   winpr3-utils \
   uidmap dbus-user-session docker-ce-rootless-extras fuse-overlayfs \
-  cockpit lm-sensors
+  cockpit cockpit-navigator lm-sensors \
+  cockpit-machines
 
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -49,8 +53,13 @@ wget https://github.com/ocristopfer/cockpit-sensors/releases/latest/download/coc
   rm -r cockpit-sensors && \
   rm cockpit-sensors.tar.xz
 
+# Install cockpit-dockermanager plugin
 curl -L -o dockermanager.deb https://github.com/chrisjbawden/cockpit-dockermanager/releases/download/latest/dockermanager.deb && dpkg -i dockermanager.deb && rm dockermanager.deb
 
 ###########################################################
 # Enable Services
 systemctl enable --now cockpit.socket
+
+############################################################
+# Create needed directories
+mkdir -p /opt/workdir/{vllm-cache/{tiktoken,tiktoken-encodings},models,logs}

@@ -44,6 +44,8 @@ Once it's booting, you'll need to connect it to a network, create a user, etc of
 
 If you have another system you'll be connecting remotely to the Spark, then you'll want to download [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) first - then [NVIDIA Sync](https://build.nvidia.com/spark/connect-to-your-spark/sync) as detailed in the Onboarding guide.
 
+After you have NVIDIA Sync set up, this is a good opportunity to simply load up the DGX Dashboard, run a quick System Update, then Set the Hostname which will trigger a reboot.  Of course you could also just do a `apt update && apt upgrade -y && hostnamectl hostname raichu && systemctl reboot`
+
 Past that, I personally haven't used the Workbench or Sync much - the Open WebUI example in the guides that's supposed to run via NVIDIA Sync didn't work for me - this is when I decided to run it the way I normally would.
 
 ## Table of Contents

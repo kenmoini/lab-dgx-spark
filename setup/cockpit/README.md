@@ -8,6 +8,9 @@ You can simply install and enable Cockpit, or you can go the extra mile and add 
 # Install Cockpit
 apt install cockpit cockpit-storaged -y
 
+# Install Libvirt and the Cockpit Machines plugin - Optional if you don't want to run VMs
+apt install cockpit-machines -y
+
 # Install cockpit-sensors plugin
 wget https://github.com/ocristopfer/cockpit-sensors/releases/latest/download/cockpit-sensors.tar.xz && \
   tar -xf cockpit-sensors.tar.xz cockpit-sensors/dist && \
