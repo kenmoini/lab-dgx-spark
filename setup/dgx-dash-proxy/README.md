@@ -2,6 +2,8 @@
 
 When using NVIDIA Sync, you can access the DGX Dashboard remotely from your desktop.
 
+![DGX Dashboard](dgx-dashboard.jpg)
+
 It does this by creating an SSH tunnel that can access the port 11000 on the DGX system.
 
 The Dashboard is controlled by a SystemD service and there's no way to get it to listen on a wider address list than just localhost.
@@ -33,7 +35,7 @@ This let's you add the following Traefik dynamic configuration to access the das
 http:
   routers:
     dgxdashboard:
-      rule: "Host(`dgx-dashboard.192.168.42.111.traefik.me`)"
+      rule: "Host(`dgx-dashboard.YOUR_SPARK_IP.traefik.me`)"
       service: dgxdashboard
       entrypoints:
         - web
@@ -43,5 +45,21 @@ http:
     dgxdashboard:
       loadBalancer:
         servers:
-          - url: "http://192.168.42.111:11001" # This is the IP of the DGX Spark
+          - url: "http://YOUR_SPARK_IP:11001" # This is the IP of the DGX Spark
+```
+
+## Homepage Configuration
+
+In case you're also using Homepage as a landing page for things, this is how you'd include the DGX Spark Dashboard as a link option:
+
+
+```yaml
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+- Management:
+  - DGX Dashboard:
+      href: https://dgx-dashboard.YOUR_SPARK_IP.traefik.me/
+      description: DGX Dashboard for JupyterHub and basic system monitoring and management
+      icon: nvidia.png
 ```

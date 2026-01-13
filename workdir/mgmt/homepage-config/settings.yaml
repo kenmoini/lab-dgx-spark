@@ -1,0 +1,22 @@
+title: DGX Spark Homepage
+description: Internal Homepage for DGX Spark Services
+language: en
+hideVersion: true
+showStats: true
+
+color: neutral
+useEqualHeights: true
+headerStyle: boxed
+
+#logpath: /data/logs
+
+startUrl: https://homepage.192.168.42.111.traefik.me
+base: https://homepage.192.168.42.111.traefik.me
+target: _blank
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: false
+  provider: duckduckgo

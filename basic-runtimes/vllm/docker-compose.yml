@@ -12,18 +12,18 @@ services:
       - "traefik.http.routers.vllm.entrypoints=web,websecure"
       - "traefik.http.routers.vllm.service=vllm"
       - "traefik.http.routers.vllm.tls=true"
-      - "traefik.http.routers.vllm.rule=Host(`vllm.192.168.42.111.traefik.me`)"
+      - "traefik.http.routers.vllm.rule=Host(`vllm.YOUR_SPARK_IP1.traefik.me`)"
       - "traefik.http.services.vllm.loadbalancer.server.port=8000"
       - "homepage.group=AI Services"
       - "homepage.name=vLLM"
-      - "homepage.icon=sh-vllm"
-      - "homepage.href=https://vllm.192.168.42.111.traefik.me"
+      - "homepage.icon=si-lemmy"
+      - "homepage.href=https://vllm.YOUR_SPARK_IP1.traefik.me"
       - "homepage.description=VLLM Single Model Interface"
     expose:
       - 8000
     volumes:
       - /etc/ssl/certs/:/etc/ssl/certs/:ro
-      - /opt/workdir/vllm-cache:/vllm-cache
+      - /opt/workdir/llm-cache:/vllm-cache
     environment:
       - HF_HOME=/vllm-cache/huggingface
       - XDG_CONFIG_HOME=/vllm-cache/vllm

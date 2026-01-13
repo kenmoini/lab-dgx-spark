@@ -1,0 +1,43 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    networks:
+      - proxy
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.ollama.entrypoints=web,websecure"
+      - "traefik.http.routers.ollama.service=ollama"
+      - "traefik.http.routers.ollama.tls=true"
+      - "traefik.http.routers.ollama.rule=Host(`ollama.YOUR_SPARK_IP1.traefik.me`)"
+      - "traefik.http.services.ollama.loadbalancer.server.port=11434"
+      - "homepage.group=AI Services"
+      - "homepage.name=Ollama"
+      - "homepage.icon=sh-ollama"
+      - "homepage.href=https://ollama.YOUR_SPARK_IP1.traefik.me"
+      - "homepage.description=Ollama LLM Management Interface"
+    expose:
+      - 11434
+    volumes:
+      - /etc/ssl/certs/:/etc/ssl/certs/:ro
+      - /opt/workdir/llm-cache/huggingface:/vllm-cache/huggingface
+      - /opt/workdir/llm-cache/torchinductor:/vllm-cache/torchinductor
+      - /opt/workdir/llm-cache/ollama:/root/.ollama
+    environment:
+      - HF_HOME=/vllm-cache/huggingface
+      - TORCHINDUCTOR_CACHE_DIR=/vllm-cache/torchinductor
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: proxy
+    external: true # enable if the network is not defined in this stack

@@ -62,4 +62,4 @@ systemctl enable --now cockpit.socket
 
 ############################################################
 # Create needed directories
-mkdir -p /opt/workdir/{vllm-cache/{tiktoken,tiktoken-encodings},models,logs}
+mkdir -p /opt/workdir/{llm-cache/{huggingface,ollama,tiktoken,tiktoken-encodings},models,logs}

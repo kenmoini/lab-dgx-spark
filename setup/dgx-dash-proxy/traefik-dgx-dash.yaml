@@ -1,0 +1,15 @@
+# /opt/workdir/mgmt/dynamic/dgx-dash.yml
+http:
+  routers:
+    dgxdashboard:
+      rule: "Host(`dgx-dashboard.YOUR_SPARK_IP1.traefik.me`)"
+      service: dgxdashboard
+      entrypoints:
+        - web
+        - websecure
+
+  services:
+    dgxdashboard:
+      loadBalancer:
+        servers:
+          - url: "http://YOUR_SPARK_IP1:11001" # This is the IP of the DGX Spark

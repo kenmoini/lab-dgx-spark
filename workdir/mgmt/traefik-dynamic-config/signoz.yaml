@@ -1,0 +1,37 @@
+http:
+  routers:
+    signoz-web:
+      rule: "Host(`signoz.192.168.42.111.traefik.me`)"
+      service: signoz-web
+      entrypoints:
+        - web
+        - websecure
+      tls: {}
+    signoz-otel-grpc:
+      service: signoz-otel-grpc
+      rule: Host(`signoz-otel-grpc.192.168.42.111.traefik.me`)
+      entrypoints:
+        - web
+        - websecure
+      tls: {}
+    signoz-otel-http:
+      service: signoz-otel-http
+      rule: Host(`signoz-otel-http.192.168.42.111.traefik.me`)
+      entrypoints:
+        - web
+        - websecure
+      tls: {}
+
+  services:
+    signoz-web:
+      loadBalancer:
+        servers:
+          - url: "http://signoz:8080"
+    signoz-otel-grpc:
+      loadBalancer:
+        servers:
+        - url: https://signoz-otel-collector:4317
+    signoz-otel-http:
+      loadBalancer:
+        servers:
+        - url: http://signoz-otel-collector:4318

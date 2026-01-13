@@ -1,0 +1,13 @@
+---
+# Links to services that aren't automatically added to Homepage via Docker labels
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+- Management:
+  - Cockpit:
+      href: https://192.168.42.111:9090/
+      description: Cockpit Web Console for System Management
+      icon: cockpit.png
+  - DGX Dashboard:
+      href: https://dgx-dashboard.192.168.42.111.traefik.me/
+      description: DGX Dashboard for JupyterHub and basic system monitoring and management
+      icon: nvidia.png

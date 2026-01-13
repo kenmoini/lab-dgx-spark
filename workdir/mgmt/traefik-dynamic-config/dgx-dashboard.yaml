@@ -1,0 +1,15 @@
+http:
+  routers:
+    dgxdashboard:
+      rule: "Host(`dgx-dashboard.192.168.42.111.traefik.me`)"
+      service: dgxdashboard
+      entrypoints:
+        - web
+        - websecure
+      tls: {}
+
+  services:
+    dgxdashboard:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.42.111:11001"

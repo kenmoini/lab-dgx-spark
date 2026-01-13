@@ -1,0 +1,7 @@
+# Simple bookmarks file for homepage
+---
+- NVIDIA:
+  - QuickStart:
+    - description: DGX Spark Quickstart
+      href: https://build.nvidia.com/spark
+      abbr: QS

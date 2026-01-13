@@ -8,7 +8,7 @@ You can simply install and enable Cockpit, or you can go the extra mile and add 
 # Install Cockpit
 apt install cockpit cockpit-storaged -y
 
-# Install Libvirt and the Cockpit Machines plugin - Optional if you don't want to run VMs
+# Installs Libvirt and the Cockpit Machines plugin - Optional if you don't want to run VMs
 apt install cockpit-machines -y
 
 # Install cockpit-sensors plugin
@@ -27,3 +27,19 @@ systemctl enable --now cockpit.socket
 ```
 
 With that you should be able to access the Cockpit dashboard from `https://YOUR_SPARK_IP:9090/` and by logging in with your Linux credentials.
+
+
+## Homepage Configuration
+
+In case you're also using Homepage as a landing page for things, this is how you'd include the DGX Spark Dashboard as a link option:
+
+```yaml
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+- Management:
+  - Cockpit:
+      href: https://YOUR_SPARK_IP:9090/
+      description: Cockpit Web Console for System Management
+      icon: cockpit.png
+```

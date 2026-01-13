@@ -50,7 +50,7 @@ Past that, I personally haven't used the Workbench or Sync much - the Open WebUI
 
 ## Table of Contents
 
-> The `workdir` contains all the working scripts/configs that I use
+> Note: If you just want to start copy/pasting code and stuff, the `workdir` contains all the working scripts/configs that I use in it's general structure.  Below are individual topics broken out.
 
 ### Setup
 
@@ -58,3 +58,8 @@ Past that, I personally haven't used the Workbench or Sync much - the Open WebUI
 - [DGX Dashboard Proxy Service](./setup/dgx-dash-proxy/README.md)
 - ["Free" Ubuntu Pro](./setup/ubuntu-pro/README.md)
 - [Installing Cockpit and Co](./setup/cockpit/README.md)
+- [Install NVIDIA GPU Cloud CLI](./setup/ngc/README.md)
+- [Docker Setup](./setup/docker/README.md)
+- [Docker Proxy](./setup/docker-proxy/README.md)
+- [General Helpful Things](./setup/general/README.md)
+
