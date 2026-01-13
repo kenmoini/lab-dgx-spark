@@ -30,7 +30,7 @@ While many of the exercises and tasks can be done on systems with other GPUs or 
 - A Static IP for accessing your services
 - [Optional] A DNS zone with an A record going to the system as well as a `*.systemName.domain.tld` wildcard A record going to the system - or you can use your Static IP and something like traefik.me as is in these examples
 
-## General Information
+## General Spark Information
 
 ### No Output?  Not turning on out of the box?  Reflash!
 
