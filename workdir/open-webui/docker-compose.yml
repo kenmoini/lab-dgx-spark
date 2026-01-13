@@ -1,27 +1,29 @@
 services:
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:ollama
+    container_name: open-webui
+    restart: unless-stopped
     networks:
       - proxy
     extra_hosts:
       - host.docker.internal:host-gateway
+    expose:
+      - 8080
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
-      - "traefik.http.routers.ollama.entrypoints=web,websecure"
-      - "traefik.http.routers.ollama.service=ollama"
-      - "traefik.http.routers.ollama.tls=true"
-      - "traefik.http.routers.ollama.rule=Host(`ollama.YOUR_SPARK_IP.traefik.me`)"
-      - "traefik.http.services.ollama.loadbalancer.server.port=11434"
+      - "traefik.http.routers.openwebui.entrypoints=web,websecure"
+      - "traefik.http.routers.openwebui.service=openwebui"
+      - "traefik.http.routers.openwebui.tls=true"
+      - "traefik.http.routers.openwebui.rule=Host(`openwebui.192.168.42.111.traefik.me`)"
+      - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
       - "homepage.group=AI Services"
-      - "homepage.name=Ollama"
-      - "homepage.icon=sh-ollama"
-      - "homepage.href=https://ollama.YOUR_SPARK_IP.traefik.me"
-      - "homepage.description=Ollama LLM Management Interface"
-    expose:
-      - 11434
+      - "homepage.name=Open WebUI"
+      - "homepage.icon=sh-open-webui-light"
+      - "homepage.href=https://openwebui.192.168.42.111.traefik.me"
+      - "homepage.description=Open WebUI Chat Interface"
     volumes:
+      - open-webui:/app/backend/data
       - /etc/ssl/certs/:/etc/ssl/certs/:ro
       - /opt/workdir/llm-cache/huggingface:/llm-cache/huggingface
       - /opt/workdir/llm-cache/torchinductor:/llm-cache/torchinductor
@@ -35,7 +37,9 @@ services:
           devices:
             - driver: nvidia
               capabilities: [gpu]
-    restart: unless-stopped
+
+volumes:
+  open-webui:
 
 networks:
   proxy:

@@ -2,7 +2,7 @@
 http:
   routers:
     dgxdashboard:
-      rule: "Host(`dgx-dashboard.YOUR_SPARK_IP1.traefik.me`)"
+      rule: "Host(`dgx-dashboard.YOUR_SPARK_IP.traefik.me`)"
       service: dgxdashboard
       entrypoints:
         - web
@@ -12,4 +12,4 @@ http:
     dgxdashboard:
       loadBalancer:
         servers:
-          - url: "http://YOUR_SPARK_IP1:11001" # This is the IP of the DGX Spark
+          - url: "http://YOUR_SPARK_IP:11001" # This is the IP of the DGX Spark

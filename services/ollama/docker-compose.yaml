@@ -7,6 +7,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
+      # Labels for injection into Traefik
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.ollama.entrypoints=web,websecure"
@@ -14,6 +15,7 @@ services:
       - "traefik.http.routers.ollama.tls=true"
       - "traefik.http.routers.ollama.rule=Host(`ollama.YOUR_SPARK_IP.traefik.me`)"
       - "traefik.http.services.ollama.loadbalancer.server.port=11434"
+      # Labels for injection into Homepage
       - "homepage.group=AI Services"
       - "homepage.name=Ollama"
       - "homepage.icon=sh-ollama"
@@ -22,7 +24,9 @@ services:
     expose:
       - 11434
     volumes:
+      # Mount system root store
       - /etc/ssl/certs/:/etc/ssl/certs/:ro
+      # LLM Cache Directories
       - /opt/workdir/llm-cache/huggingface:/llm-cache/huggingface
       - /opt/workdir/llm-cache/torchinductor:/llm-cache/torchinductor
       - /opt/workdir/llm-cache/ollama:/root/.ollama

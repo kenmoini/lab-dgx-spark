@@ -12,25 +12,25 @@ services:
       - "traefik.http.routers.vllm.entrypoints=web,websecure"
       - "traefik.http.routers.vllm.service=vllm"
       - "traefik.http.routers.vllm.tls=true"
-      - "traefik.http.routers.vllm.rule=Host(`vllm.YOUR_SPARK_IP1.traefik.me`)"
+      - "traefik.http.routers.vllm.rule=Host(`vllm.YOUR_SPARK_IP.traefik.me`)"
       - "traefik.http.services.vllm.loadbalancer.server.port=8000"
       - "homepage.group=AI Services"
       - "homepage.name=vLLM"
       - "homepage.icon=si-lemmy"
-      - "homepage.href=https://vllm.YOUR_SPARK_IP1.traefik.me"
+      - "homepage.href=https://vllm.YOUR_SPARK_IP.traefik.me"
       - "homepage.description=VLLM Single Model Interface"
     expose:
       - 8000
     volumes:
       - /etc/ssl/certs/:/etc/ssl/certs/:ro
-      - /opt/workdir/llm-cache:/vllm-cache
+      - /opt/workdir/llm-cache:/llm-cache/
     environment:
-      - HF_HOME=/vllm-cache/huggingface
-      - XDG_CONFIG_HOME=/vllm-cache/vllm
-      - XDG_CACHE_HOME=/vllm-cache
-      - TORCHINDUCTOR_CACHE_DIR=/vllm-cache/torchinductor
-      - TIKTOKEN_RS_CACHE_DIR=/vllm-cache/tiktoken 
-      - TIKTOKEN_ENCODINGS_BASE=/vllm-cache/tiktoken-encodings
+      - HF_HOME=/llm-cache/huggingface
+      - XDG_CONFIG_HOME=/llm-cache/vllm
+      - XDG_CACHE_HOME=/llm-cache/
+      - TORCHINDUCTOR_CACHE_DIR=/llm-cache/torchinductor
+      - TIKTOKEN_RS_CACHE_DIR=/llm-cache/tiktoken 
+      - TIKTOKEN_ENCODINGS_BASE=/llm-cache/tiktoken-encodings
       - HOME=/app
       - USER=app
     command: ["vllm", "serve", "Qwen/Qwen2.5-1.5B-Instruct", "--served-model-name", "Qwen2.5-1.5B-Instruct-test"]

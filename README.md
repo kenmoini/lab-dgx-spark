@@ -1,6 +1,6 @@
 # lab-dgx-spark
 
-Resources to quickly bootstrap a DGX Spark (or other) AI machine for productivity - includes container and model management, reverse proxy, service portal, observability, and more!
+> **tl;dr:** Resources to quickly bootstrap a DGX Spark (or other) AI machine for productivity - includes container and model management, reverse proxy, service portal, observability, and more!
 
 ## Who is this for?
 
@@ -63,3 +63,17 @@ Past that, I personally haven't used the Workbench or Sync much - the Open WebUI
 - [Docker Proxy](./setup/docker-proxy/README.md)
 - [General Helpful Things](./setup/general/README.md)
 
+### Services
+
+Once general setup is complete, you can begin to roll out some services that'll make this box useful.
+
+- [Management Stack](./services/management/README.md)
+- [Open WebUI](./services/open-webui/README.md)
+- [Generic Ollama](./services/ollama/README.md)
+
+### Custom Containers
+
+You will inevitably need to make a series of different containers.  This could be because of mismatched Python packages (looking at you Torch*), system packages missing, or something not compiled for Arm64.  I've shared some in this repo:
+
+- [llama.cpp](./containers/llama.cpp/)
+- [NVIDIA VLLM](./containers/nvidia-vllm/README.md)
