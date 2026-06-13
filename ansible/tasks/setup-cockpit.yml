@@ -1,0 +1,17 @@
+---
+- name: Install necessary Cockpit packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cockpit
+    - cockpit-machines
+    - cockpit-storaged
+  become: true
+
+- name: Enable the cockpit.socket
+  ansible.builtin.systemd:
+    name: cockpit.socket
+    state: started
+    enabled: true
+  become: true

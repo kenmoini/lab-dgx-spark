@@ -1,0 +1,26 @@
+---
+- name: Remove universe entry from sources.list
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/ubuntu.sources
+    regexp: 'universe'
+    replace: ''
+  become: true
+
+- name: Update apt repo cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: true
+
+- name: Enable universe repository
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+  loop:
+    - "deb http://ports.ubuntu.com/ubuntu-ports/ {{ ansible_facts['distribution_release'] }} universe"
+    - "deb http://ports.ubuntu.com/ubuntu-ports/ {{ ansible_facts['distribution_release'] }}-updates universe"
+    - "deb http://ports.ubuntu.com/ubuntu-ports/ {{ ansible_facts['distribution_release'] }}-security universe"
+  become: true
+
+- name: Update apt repo cache after adding the universe repository
+  ansible.builtin.apt:
+    update_cache: yes
+  become: true

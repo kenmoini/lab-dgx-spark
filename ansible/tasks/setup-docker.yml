@@ -1,0 +1,35 @@
+---
+- name: Install needed packages for Docker
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - uidmap
+    - dbus-user-session
+    - docker-ce-rootless-extras
+    - fuse-overlayfs
+    - nvidia-container-toolkit
+  become: true
+
+- name: Configure the Docker Daemon
+  ansible.builtin.copy:
+    src: files/docker-daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Enable and restart the Docker service
+  ansible.builtin.systemd:
+    name: docker.service
+    state: restarted
+    enabled: true
+  become: true
+
+- name: Enable and restart the Docker socket
+  ansible.builtin.systemd:
+    name: docker.socket
+    state: restarted
+    enabled: true
+  become: true

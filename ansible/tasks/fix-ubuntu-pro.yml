@@ -1,0 +1,23 @@
+---
+- name: Get the current Ubuntu Pro Status
+  ansible.builtin.command: pro status --format json
+  register: ubuntu_pro_status
+  changed_when: false
+  failed_when: false
+  become: true
+
+- name: Fix startup script for Ubuntu Pro
+  when: ubuntu_pro_status.stdout | from_json | json_query('attached') == 'false'
+  block:
+    - name: Remove the startup and timeout options from the Ubuntu Pro activation script
+      ansible.builtin.replace:
+        path: /opt/nvidia/dgx-oobe/ubuntu-pro-activate.sh
+        regexp: '--wait-for-startup --timeout 300 '
+        replace: ''
+      become: true
+
+    - name: Restart Ubuntu Pro Service
+      ansible.builtin.systemd:
+        name: dgx-oobe-ubuntu-pro-activate.service
+        state: restarted
+      become: true

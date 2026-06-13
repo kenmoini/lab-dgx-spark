@@ -1,0 +1,46 @@
+---
+- name: Check if NVM is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['env']['HOME'] }}/.nvm/nvm.sh"
+  register: nvm_stat
+
+- name: Install NVM if not present
+  when: not nvm_stat.stat.exists
+  block:
+    - name: Download and execute nvm installation script
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
+        dest: /tmp/install_nvm.sh
+        mode: '0755'
+
+    - name: Run the installation script for the user
+      ansible.builtin.command: /tmp/install_nvm.sh
+
+    - name: Clean up installer script
+      ansible.builtin.file:
+        path: /tmp/install_nvm.sh
+        state: absent
+
+- name: Ensure NVM initialization is in .bashrc
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_facts['env']['HOME'] }}/.bashrc"
+    line: 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+    create: true
+    mode: '0644'
+
+- name: Install Node.js versions via NVM
+  ansible.builtin.shell: |
+    source {{ ansible_facts['env']['HOME'] }}/.nvm/nvm.sh
+    nvm install {{ item }}
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts['env']['HOME'] }}/.nvm/versions/node/v{{ item }}"
+  loop: "{{ node_versions }}"
+
+- name: Set default Node.js version
+  ansible.builtin.shell: |
+    source {{ ansible_facts['env']['HOME'] }}/.nvm/nvm.sh
+    nvm alias default {{ node_versions | first }}
+  args:
+    executable: /bin/bash
+  changed_when: false

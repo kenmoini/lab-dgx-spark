@@ -1,0 +1,14 @@
+---
+- name: Install necessary binaries for DGX Sparks
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - wget
+    - git
+    - winpr3-utils
+    - lm-sensors
+    - libopenmpi-dev # needed for NCCL
+    - socat # needed for DGX Dashboard service
+  become: true

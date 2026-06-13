@@ -1,0 +1,44 @@
+---
+- name: Setup DGX Sparks
+  hosts: all
+  gather_facts: true
+  vars:
+    nvm_version: "v0.40.5"
+    node_versions:
+      - "22.22.3"
+    nv_monitor_version: "v1.13.0"
+
+  tasks:
+
+    - name: Include tasks to enable passwordless sudo
+      include_tasks: tasks/enable-passwordless-sudo.yml
+
+    - name: Include tasks to setup Ubuntu Pro
+      include_tasks: tasks/fix-ubuntu-pro.yml
+
+    - name: Include tasks to enable universe repository
+      include_tasks: tasks/enable-universe-repo.yml
+
+    - name: Include tasks to install necessary binaries
+      include_tasks: tasks/install-binaries.yml
+
+    - name: Include tasks to install uv
+      include_tasks: tasks/install-uv.yml
+
+    - name: Include tasks to install nvm
+      include_tasks: tasks/install-nvm.yml
+
+    - name: Include tasks to install NV Monitor
+      include_tasks: tasks/install-nv-monitor.yml
+
+    - name: Include tasks to install ngc-cli
+      include_tasks: tasks/install-ngc.yml
+
+    - name: Include tasks to setup cockpit
+      include_tasks: tasks/setup-cockpit.yml
+
+    - name: Include tasks to setup Docker
+      include_tasks: tasks/setup-docker.yml
+
+    - name: Include tasks to setup DGX Dashboard Proxy
+      include_tasks: tasks/setup-dgx-dash-proxy.yml

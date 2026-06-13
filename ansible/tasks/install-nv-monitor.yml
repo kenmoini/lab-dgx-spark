@@ -1,0 +1,15 @@
+---
+- name: Check if NV Monitor is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/nv-monitor
+  register: nvmonitor_stat
+
+- name: Install NV Monitor if not present
+  when: not nvmonitor_stat.stat.exists
+  block:
+    - name: Download the NV Monitor binary
+      ansible.builtin.get_url:
+        url: "https://github.com/wentbackward/nv-monitor/releases/download/{{ nv_monitor_version }}/nv-monitor-linux-arm64"
+        dest: /usr/local/bin/nv-monitor
+        mode: '0755'
+      become: true

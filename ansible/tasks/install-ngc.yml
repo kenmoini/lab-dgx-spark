@@ -1,0 +1,46 @@
+---
+- name: Check if ngc-cli is installed
+  ansible.builtin.stat:
+    path: /opt/ngc-cli/ngc
+  register: ngc_stat
+
+- name: Install ngc-cli if not present
+  when: not ngc_stat.stat.exists
+  block:
+    - name: Download the NGC CLI package
+      ansible.builtin.get_url:
+        url: "https://api.ngc.nvidia.com/v2/resources/nvidia/ngc-apps/ngc_cli/versions/4.20.0/files/ngccli_arm64.zip"
+        dest: /opt/ngccli_arm64.zip
+        mode: '0755'
+      become: true
+
+    - name: Unzip the NGC CLI package
+      ansible.builtin.unarchive:
+        src: /opt/ngccli_arm64.zip
+        dest: /opt/
+        remote_src: yes
+      become: true
+
+    - name: Set executable permissions for ngc-cli
+      ansible.builtin.file:
+        path: /opt/ngc-cli/ngc
+        mode: '0755'
+      become: true
+
+    - name: Clean up package
+      ansible.builtin.file:
+        path: /opt/ngccli_arm64.zip
+        state: absent
+      become: true
+
+- name: Create the PATH export
+  ansible.builtin.copy:
+    content: |
+      if [ -d "/opt/ngc-cli" ]; then
+        export PATH="/opt/ngc-cli:$PATH"
+      fi
+    dest: /etc/profile.d/ngc-cli.sh
+    owner: root
+    group: root
+    mode: '0755'
+  become: true

@@ -1,0 +1,19 @@
+---
+- name: Copy the DGX Dash Proxy unit file
+  ansible.builtin.copy:
+    src: files/dgx-dash-proxy.service
+    dest: /etc/systemd/system/dgx-dash-proxy.service
+    mode: '0644'
+  become: true
+
+- name: Reload systemd to recognize the new service
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: Enable and start the DGX Dash Proxy service
+  ansible.builtin.systemd:
+    name: dgx-dash-proxy.service
+    state: started
+    enabled: true
+  become: true
