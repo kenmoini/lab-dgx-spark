@@ -7,6 +7,7 @@
     node_versions:
       - "22.22.3"
     nv_monitor_version: "v1.13.0"
+    uv_version: "0.11.21"
 
   tasks:
 
