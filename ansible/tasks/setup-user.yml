@@ -1,0 +1,23 @@
+---
+- name: Create dedicated user group
+  ansible.builtin.group:
+    name: "{{ aisvc_group | default('aisvcs') }}"
+    state: present
+    gid: 1001
+  become: true
+
+- name: Create dedicated user
+  ansible.builtin.user:
+    name: "{{ aisvc_user | default('aisvcs') }}"
+    comment: AI Services
+    uid: 1001
+    group: "{{ aisvc_group | default('aisvcs') }}"
+    groups: "{{ aisvc_user_groups }}"
+    append: yes
+    shell: /bin/bash
+    create_home: yes
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/spark_id_rsa
+  become: true
+

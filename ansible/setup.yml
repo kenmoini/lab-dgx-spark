@@ -9,10 +9,19 @@
     nv_monitor_version: "v1.13.0"
     uv_version: "0.11.21"
 
+    aisvc_group: aisvcs
+    aisvc_user: aisvcs
+    aisvc_user_groups:
+      - sudo
+      - docker
+
   tasks:
 
     - name: Include tasks to enable passwordless sudo
       include_tasks: tasks/enable-passwordless-sudo.yml
+
+    - name: Include tasks to setup a common group/user
+      include_tasks: tasks/setup-user.yml
 
     - name: Include tasks to setup Ubuntu Pro
       include_tasks: tasks/fix-ubuntu-pro.yml
