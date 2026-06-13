@@ -1,6 +1,6 @@
 ---
 - name: Setup DGX Sparks
-  hosts: all
+  hosts: sparks
   gather_facts: true
   vars:
     nvm_version: "v0.40.5"
