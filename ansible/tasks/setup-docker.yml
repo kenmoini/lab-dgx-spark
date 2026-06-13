@@ -9,6 +9,7 @@
     - docker-ce-rootless-extras
     - fuse-overlayfs
     - nvidia-container-toolkit
+    - docker-compose-plugin
   become: true
 
 - name: Configure the Docker Daemon
