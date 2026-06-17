@@ -7,6 +7,7 @@
     - curl
     - wget
     - git
+    - sshpass
     - winpr3-utils
     - lm-sensors
     - libopenmpi-dev # needed for NCCL

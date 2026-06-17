@@ -21,3 +21,16 @@
     ssh_key_file: .ssh/spark_id_rsa
   become: true
 
+# - name: Add other hosts to SSH config
+#   ansible.builtin.lineinfile:
+#     path: ~/.ssh/config
+#     line: |
+#       Host {{ item }}
+#         User aisvcs
+#         Hostname {{ item }}
+#         PreferredAuthentications publickey
+#         IdentityFile ~/.ssh/spark_id_rsa
+#     create: yes
+#   loop: "{{ groups['sparks'] | reject('equalto', inventory_hostname) | list }}"
+#   become: true
+#   become_user: aisvcs

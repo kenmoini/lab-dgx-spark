@@ -2,11 +2,11 @@ all:
   children:
     sparks:
       hosts:
-        raichu:
+        raichu.lab.kemo.dev:
           ansible_host: raichu.lab.kemo.dev
           ansible_user: kemo
           ansible_python_interpreter: /usr/bin/python3
-        jolteon:
+        jolteon.lab.kemo.dev:
           ansible_host: jolteon.lab.kemo.dev
           ansible_user: kemo
           ansible_python_interpreter: /usr/bin/python3

@@ -11,11 +11,18 @@
 
     aisvc_group: aisvcs
     aisvc_user: aisvcs
+    #aisvc_user_password: s3cur3P455
     aisvc_user_groups:
       - sudo
       - docker
 
   tasks:
+
+    - name: Include tasks to enable universe repository
+      include_tasks: tasks/enable-universe-repo.yml
+
+    - name: Include tasks to install necessary binaries
+      include_tasks: tasks/install-binaries.yml
 
     - name: Include tasks to enable passwordless sudo
       include_tasks: tasks/enable-passwordless-sudo.yml
@@ -25,12 +32,6 @@
 
     - name: Include tasks to setup Ubuntu Pro
       include_tasks: tasks/fix-ubuntu-pro.yml
-
-    - name: Include tasks to enable universe repository
-      include_tasks: tasks/enable-universe-repo.yml
-
-    - name: Include tasks to install necessary binaries
-      include_tasks: tasks/install-binaries.yml
 
     - name: Include tasks to install uv
       include_tasks: tasks/install-uv.yml
